@@ -1,0 +1,126 @@
+index.html...
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple eCommerce</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>My eShop</h1>
+    <div id="cart">
+      🛒 Cart (<span id="cart-count">0</span>)
+    </div>
+  </header>
+
+  <main>
+    <section class="products" id="product-list">
+      <!-- Products will be injected here -->
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+style.css
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+
+script.js
+
+
+const products = [
+  { id: 1, name: "T-Shirt", price: 20, image: "https://via.placeholder.com/200x150?text=T-Shirt" },
+  { id: 2, name: "Shoes", price: 50, image: "https://via.placeholder.com/200x150?text=Shoes" },
+  { id: 3, name: "Hat", price: 15, image: "https://via.placeholder.com/200x150?text=Hat" },
+  { id: 4, name: "Backpack", price: 40, image: "https://via.placeholder.com/200x150?text=Backpack" }
+];
+
+let cart = [];
+
+function displayProducts() {
+  const productList = document.getElementById('product-list');
+  products.forEach(product => {
+    const productEl = document.createElement('div');
+    productEl.className = 'product';
+    productEl.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>$${product.price}</p>
+      <button onclick="addToCart(${product.id})">Add to Cart</button>
+    `;
+    productList.appendChild(productEl);
+  });
+}
+
+function addToCart(productId) {
+  cart.push(productId);
+  document.getElementById('cart-count').innerText = cart.length;
+}
+
+displayProducts();
+
+
+
+
+
+
